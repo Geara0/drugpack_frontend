@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../blocs/registrtion_bloc/registration_bloc.dart';
-import '../blocs/registrtion_bloc/registration_event.dart';
-import '../blocs/registrtion_bloc/registration_state.dart';
+import '../blocs/auth_bloc/auth_bloc.dart';
+import '../blocs/auth_bloc/auth_event.dart';
+import '../blocs/auth_bloc/auth_state.dart';
 
 class RegistrationPage extends StatelessWidget {
+  const RegistrationPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -13,7 +15,7 @@ class RegistrationPage extends StatelessWidget {
         title: Text('Registration Page'),
       ),
       body: BlocProvider(
-        create: (context) => RegistrationBloc(),
+        create: (context) => AuthBloc(),
         child: RegistrationForm(),
       ),
     );
@@ -23,11 +25,11 @@ class RegistrationPage extends StatelessWidget {
 class RegistrationForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final registrationBloc = BlocProvider.of<RegistrationBloc>(context);
+    final registrationBloc = BlocProvider.of<AuthBloc>(context);
     final _emailController = TextEditingController();
     final _passwordController = TextEditingController();
 
-    return BlocListener<RegistrationBloc, RegistrationState>(
+    return BlocListener<AuthBloc, AuthState>(
       listener: (context, state) {
         if (state is RegistrationSuccess) {
           ScaffoldMessenger.of(context).showSnackBar(

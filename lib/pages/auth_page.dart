@@ -1,12 +1,16 @@
 import 'package:drugpack/pages/recovery_page.dart';
 import 'package:drugpack/pages/registration_page.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import '../blocs/auth_bloc/auth_bloc.dart';
 import '../blocs/auth_bloc/auth_event.dart';
 import '../blocs/auth_bloc/auth_state.dart';
 
 class AuthPage extends StatelessWidget {
+  const AuthPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return BlocProvider<AuthBloc>(
@@ -20,13 +24,15 @@ class AuthPageContent extends StatelessWidget {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
 
+  AuthPageContent({super.key});
+
   @override
   Widget build(BuildContext context) {
     final authBloc = BlocProvider.of<AuthBloc>(context);
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Auth Page'),
+        title: Text('login.title').tr(),
       ),
       body: BlocBuilder<AuthBloc, AuthState>(
         builder: (context, state) {
@@ -64,15 +70,13 @@ class AuthPageContent extends StatelessWidget {
             ),
               ElevatedButton(
                 onPressed: () {
-                  Navigator.push(context, MaterialPageRoute(
-                      builder: (context) => RegistrationPage()));
+                  context.go('/auth/registration');
                 },
                 child: Text('Регистрация'),
               ),
               ElevatedButton(
                 onPressed: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => RecoveryPage()));
+                  context.go('/auth/recovery');
                 },
                 child: Text('Восстановление аккаунта'),
               ),

@@ -11,3 +11,13 @@ class LoginButtonPressed extends AuthEvent {
   @override
   String toString() => 'RegisterButtonPressed { email: $email, password: $password }';
 }
+
+class RegisterButtonPressed extends AuthEvent {
+  final String email;
+  final String password;
+
+  RegisterButtonPressed({required this.email, required this.password});
+
+  @override
+  String toString() => 'RegisterButtonPressed { email: $email, password: $password }';
+}
