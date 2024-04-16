@@ -1,5 +1,14 @@
 {
-  "login": {
-    "title": "логин"
+  "auth": {
+    "login": "вход",
+    "Login": "Вход",
+    "LOGIN": "ВХОД",
+    "Register": "Регистрация",
+    "REGISTER": "РЕГИСТРАЦИЯ",
+    "Email": "Почта",
+    "Password": "Пароль",
+    "Forgot password?": "Забыли пароль?",
+    "Send request": "Отправить запрос",
+    "Back": "Назад"
   }
 }

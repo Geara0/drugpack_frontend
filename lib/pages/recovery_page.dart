@@ -1,4 +1,6 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class RecoveryPage extends StatelessWidget {
   const RecoveryPage({super.key});
@@ -6,31 +8,46 @@ class RecoveryPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Recovery Page'),
-      ),
-      body: Center(
+      body: Container(
+        padding: EdgeInsets.symmetric(horizontal: 20),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Text('Введите ваш email для восстановления пароля:'),
-            SizedBox(height: 10),
-            TextFormField(
-              decoration: InputDecoration(labelText: 'Email'),
-            ),
-            SizedBox(height: 10),
-            ElevatedButton(
-              onPressed: () {
-                // Добавьте логику для отправки запроса на восстановление пароля
-              },
-              child: Text('Отправить запрос'),
-            ),
-            SizedBox(height: 10),
-            TextButton(
-              onPressed: () {
-                Navigator.pop(context); // Возвращаемся на предыдущую страницу
-              },
-              child: Text('Назад'),
+            Container(
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(10),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.grey.withOpacity(0.5),
+                    spreadRadius: 5,
+                    blurRadius: 15,
+                    offset: Offset(0, 3),
+                  ),
+                ],
+              ),
+              padding: EdgeInsets.all(20),
+              child: Column(
+                children: <Widget>[
+                  SizedBox(height: 10),
+                  TextFormField(
+                    decoration: InputDecoration(labelText: 'auth.Email'.tr()),
+                  ),
+                  SizedBox(height: 10),
+                  ElevatedButton(
+                    onPressed: () {
+                      // Добавьте логику для отправки запроса на восстановление пароля
+                    },
+                    child: Text('auth.Send request'.tr()),
+                  ),
+                  TextButton(
+                    onPressed: () {
+                      context.go('/auth/login');
+                    },
+                    child: Text('auth.Back'.tr()),
+                  ),
+                ],
+              ),
             ),
           ],
         ),

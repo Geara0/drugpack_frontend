@@ -1,9 +1,10 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 
 import '../blocs/auth_bloc/auth_bloc.dart';
 import '../blocs/auth_bloc/auth_event.dart';
-import '../blocs/auth_bloc/auth_state.dart';
 
 class RegistrationPage extends StatelessWidget {
   const RegistrationPage({super.key});
@@ -11,9 +12,6 @@ class RegistrationPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Registration Page'),
-      ),
       body: BlocProvider(
         create: (context) => AuthBloc(),
         child: RegistrationForm(),
@@ -29,49 +27,62 @@ class RegistrationForm extends StatelessWidget {
     final _emailController = TextEditingController();
     final _passwordController = TextEditingController();
 
-    return BlocListener<AuthBloc, AuthState>(
-      listener: (context, state) {
-        if (state is RegistrationSuccess) {
-          ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text(state.message),
-            backgroundColor: Colors.green,
-          ),
-        );
-        } else if (state is RegistrationFailure) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text(state.error),
-              backgroundColor: Colors.red,
-            ),
-          );
-        }
-      },
-      child: Padding(
-        padding: const EdgeInsets.all(20.0),
+    return Scaffold(
+      body: Container(
+        padding: EdgeInsets.symmetric(horizontal: 20),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            TextFormField(
-              controller: _emailController,
-              decoration: InputDecoration(labelText: 'Email'),
-            ),
-            TextFormField(
-              controller: _passwordController,
-              decoration: InputDecoration(labelText: 'Password'),
-              obscureText: true,
-            ),
-            SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: () {
-                registrationBloc.add(
-                  RegisterButtonPressed(
-                    email: _emailController.text,
-                    password: _passwordController.text,
+            Container(
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(10),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.grey.withOpacity(0.5),
+                    spreadRadius: 5,
+                    blurRadius: 15,
+                    offset: Offset(0, 3),
                   ),
-                );
-              },
-              child: Text('Register'),
+                ],
+              ),
+              padding: const EdgeInsets.all(20.0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  TextFormField(
+                    controller: _emailController,
+                    decoration: InputDecoration(
+                      labelText: 'auth.Email'.tr(),
+                    ),
+                  ),
+                  TextFormField(
+                    controller: _passwordController,
+                    decoration: InputDecoration(
+                      labelText: 'auth.Password'.tr(),
+                    ),
+                    obscureText: true,
+                  ),
+                  SizedBox(height: 20),
+                  ElevatedButton(
+                    onPressed: () {
+                      registrationBloc.add(
+                        RegisterButtonPressed(
+                          email: _emailController.text,
+                          password: _passwordController.text,
+                        ),
+                      );
+                    },
+                    child: Text('auth.Register'.tr()),
+                  ),
+                  TextButton(
+                    onPressed: () {
+                      context.go('/auth/login');
+                    },
+                    child: Text('auth.Back'.tr()),
+                  ),
+                ],
+              ),
             ),
           ],
         ),

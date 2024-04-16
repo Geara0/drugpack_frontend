@@ -1,5 +1,14 @@
 {
-  "login": {
-    "title": "23452345"
+  "auth": {
+    "login": "login",
+    "Login": "Login",
+    "LOGIN": "LOGIN",
+    "Register": "Register",
+    "REGISTER": "REGISTER",
+    "Email": "Email",
+    "Password": "Password",
+    "Forgot password?": "Forgot password?",
+    "Send request": "Send request",
+    "Back": "Back"
   }
 }
