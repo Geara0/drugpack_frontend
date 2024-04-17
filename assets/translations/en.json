@@ -10,5 +10,12 @@
     "Forgot password?": "Forgot password?",
     "Send request": "Send request",
     "Back": "Back"
+  },
+  "validation error": {
+    "Email is empty": "Please enter an email",
+    "Invalid email": "Invalid email",
+    "Password is empty": "Please enter a password",
+    "Short password": "Password must be at least 8 characters long",
+    "Unsafe password": "Password must contain at least one uppercase letter and one special character"
   }
 }

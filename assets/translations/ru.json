@@ -10,5 +10,12 @@
     "Forgot password?": "Забыли пароль?",
     "Send request": "Отправить запрос",
     "Back": "Назад"
+  },
+  "validation error": {
+    "Email is empty": "Введите почту",
+    "Invalid email": "Неправильно указан адрес",
+    "Password is empty": "Введите пароль",
+    "Short password": "Не менее 8 символов",
+    "Unsafe password": "Как минимум одна заглавная буква и спец.символ"
   }
 }

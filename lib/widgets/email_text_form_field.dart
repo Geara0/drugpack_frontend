@@ -15,12 +15,12 @@ class EmailTextField extends StatelessWidget {
         ),
         validator: (value) {
           if (value == null || value.isEmpty) {
-            return 'Please enter an email';
+            return 'validation error.Email is empty'.tr();
           } else {
             final RegExp emailRegex = RegExp(
                 r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+");
             if (!emailRegex.hasMatch(value)) {
-              return 'Invalid email';
+              return 'validation error.Invalid email'.tr();
             }
           }
           return null;
