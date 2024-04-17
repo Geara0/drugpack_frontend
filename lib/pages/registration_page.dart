@@ -5,6 +5,8 @@ import 'package:go_router/go_router.dart';
 
 import '../blocs/auth_bloc/auth_bloc.dart';
 import '../blocs/auth_bloc/auth_event.dart';
+import '../widgets/email_text_form_field.dart';
+import '../widgets/password_text_form_field.dart';
 
 class RegistrationPage extends StatelessWidget {
   const RegistrationPage({super.key});
@@ -24,8 +26,9 @@ class RegistrationForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final registrationBloc = BlocProvider.of<AuthBloc>(context);
-    final _emailController = TextEditingController();
-    final _passwordController = TextEditingController();
+    final emailController = TextEditingController();
+    final passwordController = TextEditingController();
+    final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
     return Scaffold(
       body: Container(
@@ -33,55 +36,51 @@ class RegistrationForm extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Container(
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(10),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.grey.withOpacity(0.5),
-                    spreadRadius: 5,
-                    blurRadius: 15,
-                    offset: Offset(0, 3),
-                  ),
-                ],
-              ),
-              padding: const EdgeInsets.all(20.0),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  TextFormField(
-                    controller: _emailController,
-                    decoration: InputDecoration(
-                      labelText: 'auth.Email'.tr(),
+            Form(
+              key: _formKey,
+              child: Container(
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(10),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey.withOpacity(0.5),
+                      spreadRadius: 5,
+                      blurRadius: 15,
+                      offset: Offset(0, 3),
                     ),
-                  ),
-                  TextFormField(
-                    controller: _passwordController,
-                    decoration: InputDecoration(
-                      labelText: 'auth.Password'.tr(),
+                  ],
+                ),
+                padding: const EdgeInsets.all(20.0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    EmailTextField(
+                      controller: emailController,
                     ),
-                    obscureText: true,
-                  ),
-                  SizedBox(height: 20),
-                  ElevatedButton(
-                    onPressed: () {
-                      registrationBloc.add(
-                        RegisterButtonPressed(
-                          email: _emailController.text,
-                          password: _passwordController.text,
-                        ),
-                      );
-                    },
-                    child: Text('auth.Register'.tr()),
-                  ),
-                  TextButton(
-                    onPressed: () {
-                      context.go('/auth/login');
-                    },
-                    child: Text('auth.Back'.tr()),
-                  ),
-                ],
+                    PasswordTextField(
+                      controller: passwordController,
+                    ),
+                    SizedBox(height: 20),
+                    ElevatedButton(
+                      onPressed: () {
+                        registrationBloc.add(
+                          RegisterButtonPressed(
+                            email: emailController.text,
+                            password: passwordController.text,
+                          ),
+                        );
+                      },
+                      child: Text('auth.Register'.tr()),
+                    ),
+                    TextButton(
+                      onPressed: () {
+                        context.go('/auth/login');
+                      },
+                      child: Text('auth.Back'.tr()),
+                    ),
+                  ],
+                ),
               ),
             ),
           ],
