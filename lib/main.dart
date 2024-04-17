@@ -1,5 +1,5 @@
-import 'package:drugpack/pages/auth_page.dart';
 import 'package:drugpack/router/router.dart';
+import 'package:drugpack/themes.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -47,8 +47,8 @@ class MyApp extends StatelessWidget {
       localizationsDelegates: context.localizationDelegates,
       supportedLocales: context.supportedLocales,
       locale: context.locale,
-      // theme: theme.light,
-      // darkTheme: theme.dark,
+      theme: ThemeClass.lightTheme,
+      darkTheme: ThemeClass.darkTheme,
       routeInformationParser: router.routeInformationParser,
       routeInformationProvider: router.routeInformationProvider,
       routerDelegate: router.routerDelegate,
