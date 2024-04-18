@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 
 import '../blocs/auth_bloc/auth_bloc.dart';
 import '../blocs/auth_bloc/auth_event.dart';
+import '../themes.dart';
 import '../widgets/email_text_form_field.dart';
 import '../widgets/password_text_form_field.dart';
 
@@ -39,18 +40,7 @@ class RegistrationForm extends StatelessWidget {
             Form(
               key: _formKey,
               child: Container(
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(10),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.grey.withOpacity(0.5),
-                      spreadRadius: 5,
-                      blurRadius: 15,
-                      offset: Offset(0, 3),
-                    ),
-                  ],
-                ),
+                decoration: ThemeClass.containerDecoration,
                 padding: const EdgeInsets.all(20.0),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,

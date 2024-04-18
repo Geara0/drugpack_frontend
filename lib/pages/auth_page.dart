@@ -1,3 +1,4 @@
+import 'package:drugpack/themes.dart';
 import 'package:drugpack/widgets/password_text_form_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -39,18 +40,7 @@ class AuthPageContent extends StatelessWidget {
             Form(
               key: _formKey,
               child: Container(
-                decoration: BoxDecoration(
-                  // color: ,
-                  borderRadius: BorderRadius.circular(10),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.grey.withOpacity(0.5),
-                      spreadRadius: 5,
-                      blurRadius: 15,
-                      offset: Offset(0, 3),
-                    ),
-                  ],
-                ),
+                decoration: ThemeClass.containerDecoration,
                 padding: EdgeInsets.all(20),
                 child: Column(
                   children: <Widget>[
