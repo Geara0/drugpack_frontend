@@ -7,13 +7,13 @@ import 'package:drugpack/pages/auth_page.dart';
 import 'package:drugpack/pages/home_page.dart';
 import 'package:drugpack/pages/recovery_page.dart';
 import 'package:drugpack/pages/registration_page.dart';
-import 'package:drugpack/pages/search_page.dart';
 import 'package:drugpack/utils/account_utils.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 import '../blocs/auth_bloc/auth_bloc.dart';
+import '../pages/drug_page.dart';
 import '../pages/profile_page.dart';
 
 final rootKey = GlobalKey<NavigatorState>();
@@ -34,11 +34,25 @@ final List<RouteBase> _routes = [
         routes: [
           GoRoute(
             path: 'home',
-            builder: (context, state) {
-              return HomePage(
-                key: state.pageKey,
-              );
-            },
+            builder: (context, state) => MultiBlocProvider(
+              providers: [
+                BlocProvider(
+                  create: (context) => SearchBloc<DrugDto>(
+                    'search/drugs',
+                    deserialize: DrugDto.fromJson,
+                  ),
+                ),
+              ],
+              child: HomePage(key: state.pageKey),
+            ),
+            // routes: [
+            //   GoRoute(
+            //     path: 'Drug/:id',
+            //     builder: (context, state) {
+            //       return DrugPage(drugDto: ,);
+            //     },
+            //   ),
+            // ],
           ),
           GoRoute(
             path: 'profile',
@@ -50,20 +64,6 @@ final List<RouteBase> _routes = [
                 ),
               );
             },
-          ),
-          GoRoute(
-            path: 'search',
-            builder: (context, state) => MultiBlocProvider(
-              providers: [
-                BlocProvider(
-                  create: (context) => SearchBloc<DrugDto>(
-                    'search/drugs',
-                    deserialize: DrugDto.fromJson,
-                  ),
-                ),
-              ],
-              child: SearchPage(key: state.pageKey),
-            ),
           ),
         ],
       ),
@@ -107,7 +107,7 @@ final List<RouteBase> _routes = [
 FutureOr<String?> _goDefault(BuildContext context, GoRouterState state) async {
   final token = await AccountUtils.tryAccountKey;
   if (token != null) {
-    return '/main/search';
+    return '/main/home';
   }
   if (token == null &&
       !(state.fullPath ?? state.path ?? '').startsWith('/auth')) {
