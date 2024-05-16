@@ -1,11 +1,20 @@
 import 'dart:async';
 
+import 'package:drugpack/blocs/profile_bloc/profile_bloc.dart';
+import 'package:drugpack/blocs/search_bloc/search_bloc.dart';
+import 'package:drugpack/dto/drug/drug_dto.dart';
 import 'package:drugpack/pages/auth_page.dart';
+import 'package:drugpack/pages/home_page.dart';
 import 'package:drugpack/pages/recovery_page.dart';
 import 'package:drugpack/pages/registration_page.dart';
+import 'package:drugpack/pages/search_page.dart';
 import 'package:drugpack/utils/account_utils.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+
+import '../blocs/auth_bloc/auth_bloc.dart';
+import '../pages/profile_page.dart';
 
 final rootKey = GlobalKey<NavigatorState>();
 final router = GoRouter(
@@ -21,9 +30,42 @@ final List<RouteBase> _routes = [
     routes: [
       GoRoute(
         path: 'main',
-        builder: (context, state) {
-          return Placeholder();
-        },
+        redirect: _mainRedirect,
+        routes: [
+          GoRoute(
+            path: 'home',
+            builder: (context, state) {
+              return HomePage(
+                key: state.pageKey,
+              );
+            },
+          ),
+          GoRoute(
+            path: 'profile',
+            builder: (context, state) {
+              return BlocProvider<ProfileBloc>(
+                create: (context) => ProfileBloc(),
+                child: ProfilePage(
+                  key: state.pageKey,
+                ),
+              );
+            },
+          ),
+          GoRoute(
+            path: 'search',
+            builder: (context, state) => MultiBlocProvider(
+              providers: [
+                BlocProvider(
+                  create: (context) => SearchBloc<DrugDto>(
+                    'search/drugs',
+                    deserialize: DrugDto.fromJson,
+                  ),
+                ),
+              ],
+              child: SearchPage(key: state.pageKey),
+            ),
+          ),
+        ],
       ),
       GoRoute(
         path: 'auth',
@@ -32,8 +74,11 @@ final List<RouteBase> _routes = [
           GoRoute(
             path: 'login',
             builder: (context, state) {
-              return AuthPage(
-                key: state.pageKey,
+              return BlocProvider<AuthBloc>(
+                create: (context) => AuthBloc(),
+                child: AuthPage(
+                  key: state.pageKey,
+                ),
               );
             },
           ),
@@ -60,8 +105,10 @@ final List<RouteBase> _routes = [
 ];
 
 FutureOr<String?> _goDefault(BuildContext context, GoRouterState state) async {
-  final token = await AccountUtils.accountKey;
-  debugPrint(token);
+  final token = await AccountUtils.tryAccountKey;
+  if (token != null) {
+    return '/main/search';
+  }
   if (token == null &&
       !(state.fullPath ?? state.path ?? '').startsWith('/auth')) {
     return '/auth';
@@ -72,5 +119,10 @@ FutureOr<String?> _goDefault(BuildContext context, GoRouterState state) async {
 
 FutureOr<String?> _authRedirect(BuildContext context, GoRouterState state) {
   if (state.fullPath == '/auth') return '/auth/login';
+  return null;
+}
+
+FutureOr<String?> _mainRedirect(BuildContext context, GoRouterState state) {
+  if (state.fullPath == '/main') return '/main/home';
   return null;
 }

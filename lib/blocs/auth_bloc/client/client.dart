@@ -10,13 +10,13 @@ abstract class AuthClient {
   factory AuthClient(Dio dio, {String baseUrl}) = _AuthClient;
 
   @POST('auth/signUp')
-  Future<String> signUp({
+  Future<HttpResponse<String>> signUp({
     @Field() required String email,
     @Field() required String password,
   });
 
   @POST('auth/signIn')
-  Future<String> signIn({
+  Future<HttpResponse<String>> signIn({
     @Field() required String email,
     @Field() required String password,
   });

@@ -6,6 +6,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:go_router/go_router.dart';
 import '../blocs/auth_bloc/auth_bloc.dart';
 import '../blocs/auth_bloc/auth_event.dart';
+import '../blocs/auth_bloc/auth_state.dart';
 import '../widgets/email_text_form_field.dart';
 
 class AuthPage extends StatelessWidget {
@@ -13,8 +14,12 @@ class AuthPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<AuthBloc>(
-      create: (context) => AuthBloc(),
+    return BlocListener<AuthBloc, AuthState>(
+      listener: (context, state) {
+        if (state is RegistrationSuccess) {
+          context.go('/main/profile');
+        }
+      },
       child: AuthPageContent(),
     );
   }
@@ -29,11 +34,11 @@ class AuthPageContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final authBloc = BlocProvider.of<AuthBloc>(context);
+    final authBloc = context.read<AuthBloc>();
 
     return Scaffold(
       body: Container(
-        padding: EdgeInsets.symmetric(horizontal: 20),
+        padding: const EdgeInsets.symmetric(horizontal: 20),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
@@ -41,7 +46,7 @@ class AuthPageContent extends StatelessWidget {
               key: _formKey,
               child: Container(
                 decoration: ThemeClass.containerDecoration,
-                padding: EdgeInsets.all(20),
+                padding: const EdgeInsets.all(20),
                 child: Column(
                   children: <Widget>[
                     EmailTextField(
@@ -50,7 +55,7 @@ class AuthPageContent extends StatelessWidget {
                     PasswordTextField(
                       controller: passwordController,
                     ),
-                    SizedBox(height: 10),
+                    const SizedBox(height: 10),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: <Widget>[
@@ -64,15 +69,12 @@ class AuthPageContent extends StatelessWidget {
                         ),
                       ],
                     ),
-                    SizedBox(height: 10),
+                    const SizedBox(height: 10),
                     ElevatedButton(
                       onPressed: () {
-                        if (_formKey.currentState!.validate()) {
-                          authBloc.add(LoginButtonPressed(
-                              email: emailController.text,
-                              password: passwordController.text),
-                          );
-                        }
+                        authBloc.add(LoginButtonPressed(
+                            email: emailController.text,
+                            password: passwordController.text));
                       },
                       child: Text('auth.LOGIN'.tr()),
                     ),
