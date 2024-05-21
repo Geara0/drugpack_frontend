@@ -120,8 +120,11 @@ final List<RouteBase> _routes = [
       GoRoute(
         path: 'registration',
         builder: (context, state) {
-          return RegistrationPage(
-            key: state.pageKey,
+          return BlocProvider<AuthBloc>(
+            create: (context) => AuthBloc(),
+            child: RegistrationPage(
+              key: state.pageKey,
+            ),
           );
         },
       ),

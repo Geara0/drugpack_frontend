@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 
 import '../blocs/auth_bloc/auth_bloc.dart';
 import '../blocs/auth_bloc/auth_event.dart';
+import '../blocs/auth_bloc/auth_state.dart';
 import '../themes.dart';
 import '../widgets/email_text_form_field.dart';
 import '../widgets/password_text_form_field.dart';
@@ -14,16 +15,20 @@ class RegistrationPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: BlocProvider(
-        create: (context) => AuthBloc(),
-        child: RegistrationForm(),
-      ),
+    return BlocListener<AuthBloc, AuthState>(
+      listener: (context, state) {
+        if (state is RegistrationSuccess) {
+          context.go('/main/profile');
+        }
+      },
+      child: RegistrationForm(),
     );
   }
 }
 
 class RegistrationForm extends StatelessWidget {
+  const RegistrationForm({super.key});
+
   @override
   Widget build(BuildContext context) {
     final registrationBloc = BlocProvider.of<AuthBloc>(context);
