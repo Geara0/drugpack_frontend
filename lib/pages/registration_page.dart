@@ -59,12 +59,14 @@ class RegistrationForm extends StatelessWidget {
                     SizedBox(height: 20),
                     ElevatedButton(
                       onPressed: () {
-                        registrationBloc.add(
-                          RegisterButtonPressed(
-                            email: emailController.text,
-                            password: passwordController.text,
-                          ),
-                        );
+                        if (_formKey.currentState!.validate()) {
+                          registrationBloc.add(
+                            RegisterButtonPressed(
+                              email: emailController.text,
+                              password: passwordController.text,
+                            ),
+                          );
+                        }
                       },
                       child: Text('auth.Register'.tr()),
                     ),
