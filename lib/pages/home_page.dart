@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:go_router/go_router.dart';
 
 import '../dto/drug/drug_dto.dart';
 import '../widgets/search_bar/search_bar.dart';
@@ -25,6 +27,15 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
         appBar: AppBar(
           title: Text('Home Page'),
+          actions: [
+            IconButton(
+              icon: const Icon(Icons.exit_to_app),
+              onPressed: () {
+                const FlutterSecureStorage().deleteAll();
+                context.go('/auth/login');
+              },
+            ),
+          ],
         ),
         body: Column(
           children: <Widget>[
@@ -32,38 +43,17 @@ class _HomePageState extends State<HomePage> {
               transformer: _transformer,
               onTapResult: _onTapResult,
             ),
-            Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Text(
-                    'Clicks: $count',
-                    style: TextStyle(fontSize: 24),
-                  ),
-                  SizedBox(height: 20),
-                  ElevatedButton(
-                    onPressed: () {
-                      incrementCount();
-                    },
-                    child: Text('Click Me'),
-                  ),
-                ],
-              ),
-            ),
           ],
         ));
   }
 
-  Widget _transformer(DrugDto dto) {
-    return Text(dto.name);
+  Widget _transformer(DrugDto drugDto) {
+    return Text(drugDto.name);
   }
 
-  void _onTapResult(DrugDto dto, String query) {
-    Navigator.of(context).push(
-      MaterialPageRoute(
-        builder: (context) => DrugPage(drugDto: dto),
-      ),
-    );
+  void _onTapResult(DrugDto drugDto, String query) {
+    context.goNamed("drug",
+        pathParameters: {'id': drugDto.id.toString()}, extra: drugDto);
   }
 
 // Future<Iterable<String>> _getHistory() {

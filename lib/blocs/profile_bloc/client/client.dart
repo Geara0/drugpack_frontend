@@ -20,7 +20,11 @@ abstract class ProfileClient {
   });
   @POST('/account/addDrugs')
   Future<String> addAccountDrugs({
-    @Field() required String email,
+    @Field() required String drugId,
+  });
+  @POST('/account/removeDrugs')
+  Future<String> removeAccountDrugs({
+    @Field() required String drugId,
   });
   @POST('/account/addConditions')
   Future<String> addAccountConditions({

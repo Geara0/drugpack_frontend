@@ -2,7 +2,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'search_response.freezed.dart';
 
-part 'search_response.g.dart';
+// part 'search_response.g.dart';
 
 @Freezed(genericArgumentFactories: true)
 class SearchResponse<T> with _$SearchResponse<T> {
