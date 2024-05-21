@@ -16,7 +16,7 @@ class AuthPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocListener<AuthBloc, AuthState>(
       listener: (context, state) {
-        if (state is RegistrationSuccess) {
+        if (state is AuthSuccess) {
           context.go('/main/profile');
         }
       },
