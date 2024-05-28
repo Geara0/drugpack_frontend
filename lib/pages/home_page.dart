@@ -39,7 +39,19 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget _transformer(DrugDto drugDto) {
-    return Text(drugDto.name);
+    return Container(
+      padding: const EdgeInsets.only(left: 20, right: 20),
+      child: Column(
+        children: <Widget>[
+          const SizedBox(height: 20),
+          Text(
+            drugDto.name,
+            maxLines: 3,
+            overflow: TextOverflow.ellipsis,
+          ),
+        ],
+      ),
+    );
   }
 
   void _onTapResult(DrugDto drugDto, String query) {
