@@ -11,7 +11,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
     return AppBar(
       centerTitle: true,
       title: Image.asset(
-        Theme.of(context).brightness == Brightness.light ? logoLight : logoDark,
+        Theme.of(context).brightness == Brightness.light ? logoDark : logoLight,
         fit: BoxFit.contain,
         height: 48,
       ),

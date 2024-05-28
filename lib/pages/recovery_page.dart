@@ -17,6 +17,7 @@ class RecoveryPage extends StatelessWidget {
     return Scaffold(
       appBar: CustomAppBar(),
       body: Container(
+        decoration: ThemeClass.containerBackgroundDecoration(context),
         padding: EdgeInsets.symmetric(horizontal: 20),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
