@@ -13,6 +13,7 @@ class ThemeClass {
   static const Color lightElevatedButtonTextColor = Color(0xFFD3E3FF);
   static const Color lightElevatedButtonShadowColor = Color(0xFF7BABFF);
   static const Color lightIconColor = Color(0xFF002566);
+  static const Color lightInputTextColor = Color(0xFF000A1B);
 
   static const Color darkAppBarColor = Color(0xFF001A47);
   static const Color darkStatusBarColor = Color(0xFF001A47);
@@ -22,15 +23,20 @@ class ThemeClass {
   static const Color darkTextButtonColor = Color(0xFFD3E3FF);
   static const Color darkTextFieldInsideColor = Color(0xFFD3E3FF);
   static const Color darkTextFieldBorderColor = Color(0xFF001A47);
-  static const Color darkElevatedButtonColor = Color(0xFF001A47);
+  static const Color darkElevatedButtonColor = Color(0xFF7BABFF);
   static const Color darkElevatedButtonTextColor = Color(0xFF000A1B);
   static const Color darkElevatedButtonShadowColor = Color(0xFF7BABFF);
   static const Color darkIconColor = Color(0xFF002566);
+  static const Color darkInputTextColor = Color(0xFF000A1B);
+
+
+  static const Color lightInnerColor = Color(0xFFE6EFFF);
+  static const Color darkInnerColor = Color(0xFF001A47);
+  static const Color borderColor = Color(0xFF002566);
+  static const Color shadowColor = Color(0xFF7BABFF);
 
   static ThemeData lightTheme = ThemeData(
-    primaryColor: ThemeData
-        .light()
-        .scaffoldBackgroundColor,
+    primaryColor: ThemeData.light().scaffoldBackgroundColor,
     appBarTheme: const AppBarTheme(
       backgroundColor: lightAppBarColor,
     ),
@@ -58,12 +64,13 @@ class ThemeClass {
         borderSide: BorderSide(color: lightTextFieldBorderColor),
       ),
     ),
+    textTheme: TextTheme(
+      titleMedium: TextStyle(color: lightInputTextColor),
+    ),
   );
 
   static ThemeData darkTheme = ThemeData(
-    primaryColor: ThemeData
-        .dark()
-        .scaffoldBackgroundColor,
+    primaryColor: ThemeData.dark().scaffoldBackgroundColor,
     appBarTheme: const AppBarTheme(
       backgroundColor: darkAppBarColor,
     ),
@@ -91,17 +98,13 @@ class ThemeClass {
         borderSide: BorderSide(color: darkTextFieldBorderColor),
       ),
     ),
+    textTheme: TextTheme(
+      titleMedium: TextStyle(color: darkInputTextColor),
+    ),
   );
 
-  static const Color lightInnerColor = Color(0xFFE6EFFF);
-  static const Color darkInnerColor = Color(0xFF001A47);
-  static const Color borderColor = Color(0xFF002566);
-  static const Color shadowColor = Color(0xFF7BABFF);
-
   static BoxDecoration containerDecoration(BuildContext context) {
-    Color innerColor = Theme
-        .of(context)
-        .brightness == Brightness.light ? lightInnerColor : darkInnerColor;
+    Color innerColor = Theme.of(context).brightness == Brightness.light ? lightInnerColor : darkInnerColor;
     return BoxDecoration(
       borderRadius: BorderRadius.circular(10),
       color: innerColor,
