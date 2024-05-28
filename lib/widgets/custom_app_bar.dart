@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
-  final String logoDark = 'assets/images/dark_logo_DRUG.png';
-  final String logoLight = 'assets/images/light_logo_DRUG.png';
+  final String logoDark = 'assets/images/light_logo_DRUG.png';
+  final String logoLight = 'assets/images/dark_logo_DRUG.png';
 
   CustomAppBar() : super();
 
@@ -11,7 +11,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
     return AppBar(
       centerTitle: true,
       title: Image.asset(
-        Theme.of(context).brightness == Brightness.light ? logoDark : logoLight,
+        Theme.of(context).brightness == Brightness.light ? logoLight : logoDark,
         fit: BoxFit.contain,
         height: 48,
       ),
