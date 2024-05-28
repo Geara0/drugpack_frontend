@@ -21,10 +21,9 @@ part 'profile_state.dart';
       yield ProfileLoading();
 
       try {
-        final response = await _client.getAccountDrugs(email: await AccountUtils.accountEmail);
+        final response = await _client.getAccountDrugs();
 
-        if (response.response.statusCode ==200) {
-          this.drugs = response.data;
+        if (response.response.statusCode == 200) {
           debugPrint('$response');
           yield ProfileSuccess(message: 'Get drugs successful!');
         } else {
@@ -34,7 +33,7 @@ part 'profile_state.dart';
       } catch (e) {
         yield ProfileFailure(
             error:
-            'Failed to connect to the server. Please check your internet connection.');
+                'Failed to connect to the server. Please check your internet connection.');
       }
     }
     if (event is AddAccountDrug) {
@@ -48,13 +47,12 @@ part 'profile_state.dart';
           debugPrint('$response');
           yield ProfileSuccess(message: 'Add drugs successful!');
         } else {
-          yield ProfileFailure(
-              error: 'Failed to add drugs.');
+          yield ProfileFailure(error: 'Failed to add drugs.');
         }
       } catch (e) {
         yield ProfileFailure(
             error:
-            'Failed to connect to the server. Please check your internet connection.');
+                'Failed to connect to the server. Please check your internet connection.');
       }
     }
 
@@ -69,13 +67,12 @@ part 'profile_state.dart';
           debugPrint('$response');
           yield ProfileSuccess(message: 'Remove drugs successful!');
         } else {
-          yield ProfileFailure(
-              error: 'Failed to remove drugs.');
+          yield ProfileFailure(error: 'Failed to remove drugs.');
         }
       } catch (e) {
         yield ProfileFailure(
             error:
-            'Failed to connect to the server. Please check your internet connection.');
+                'Failed to connect to the server. Please check your internet connection.');
       }
     }
   }

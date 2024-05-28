@@ -21,11 +21,6 @@ class SearchBloc<T> extends Bloc<SearchEvent<T>, SearchState<T>> {
   @override
   onError(error, stackTrace) {
     add(_UnknownErrorEvent());
-    // LoggerClient.error(
-    //   exception: error.toString(),
-    //   stack: stackTrace.toString(),
-    //   library: 'SearchBloc',
-    // );
     super.onError(error, stackTrace);
   }
 
@@ -54,15 +49,8 @@ class SearchBloc<T> extends Bloc<SearchEvent<T>, SearchState<T>> {
     }
 
     try {
-      // final response = await _client.search(
-      //   request: request,
-      //   search: event.query,
-      // );
-
       final response = await dio.post(request, data: event.query);
-      // debugPrint(response.data);
       final data = response.data;
-
       final body = SearchResponse<T>.fromJson(
         data,
             (json) => deserialize(json as Map<String, dynamic>),

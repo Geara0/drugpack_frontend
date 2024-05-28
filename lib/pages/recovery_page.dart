@@ -2,7 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-import '../themes.dart';
+import '../themes/themes.dart';
 import '../widgets/email_text_form_field.dart';
 
 class RecoveryPage extends StatelessWidget {
@@ -22,7 +22,7 @@ class RecoveryPage extends StatelessWidget {
             Form(
               key: _formKey,
               child: Container(
-                decoration: ThemeClass.containerDecoration,
+                decoration: ThemeClass.containerDecoration(context),
                 padding: EdgeInsets.all(20),
                 child: Column(
                   children: <Widget>[

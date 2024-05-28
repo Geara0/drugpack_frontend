@@ -1,5 +1,5 @@
 import 'package:drugpack/router/router.dart';
-import 'package:drugpack/themes.dart';
+import 'package:drugpack/themes/themes.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';

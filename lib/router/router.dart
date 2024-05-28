@@ -85,6 +85,30 @@ final List<RouteBase> _routes = [
                         ),
                       );
                     },
+                    routes: [
+                      GoRoute(
+                        path: 'account_drugs',
+                        builder: (context, state) {
+                          return BlocProvider<ProfileBloc>(
+                            create: (context) => ProfileBloc(),
+                            child: ProfilePage(
+                              key: state.pageKey,
+                            ),
+                          );
+                        },
+                      ),
+                      GoRoute(
+                        path: 'account_conditions',
+                        builder: (context, state) {
+                          return BlocProvider<ProfileBloc>(
+                            create: (context) => ProfileBloc(),
+                            child: ProfilePage(
+                              key: state.pageKey,
+                            ),
+                          );
+                        },
+                      ),
+                    ],
                   ),
                 ],
               ),

@@ -8,22 +8,39 @@ class PasswordTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TextFormField(
-      controller: controller,
-      decoration: InputDecoration(
-        labelText: 'auth.Password'.tr(),
-      ),
-      obscureText: true,
-      validator: (value) {
-        if (value == null || value.isEmpty) {
-          return 'validation error.Password is empty'.tr();
-        } else if (value.length < 8) {
-          return 'validation error.Short password'.tr();
-        } else if (!RegExp(r'^(?=.*[A-Z])(?=.*[\W_]).{8,}$').hasMatch(value)) {
-          return 'validation error.Unsafe password'.tr();
-        }
-        return null;
-      },
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        const SizedBox(height: 10),
+        Text(
+          'auth.Password'.tr(),
+          style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+        ),
+        const SizedBox(height: 10),
+        Container(
+          height: 40,
+          child: TextFormField(
+            controller: controller,
+            decoration: InputDecoration(
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(10.0),),
+            ),
+            obscureText: true,
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return 'validation error.Password is empty'.tr();
+              } else if (value.length < 8) {
+                return 'validation error.Short password'.tr();
+              } else if (!RegExp(r'^(?=.*[A-Z])(?=.*[\W_]).{8,}$')
+                  .hasMatch(value)) {
+                return 'validation error.Unsafe password'.tr();
+              }
+              return null;
+            },
+          ),
+        ),
+        const SizedBox(height: 10),
+      ],
     );
   }
 }

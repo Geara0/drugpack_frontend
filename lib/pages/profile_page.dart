@@ -4,6 +4,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:go_router/go_router.dart';
 
+import '../utils/account_utils.dart';
+
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
 
@@ -14,8 +16,6 @@ class ProfilePage extends StatefulWidget {
 class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
-    final bloc = context.read<ProfileBloc>();
-
     return Scaffold(
       appBar: AppBar(
         title: const Text('Profile'),
@@ -29,35 +29,40 @@ class _ProfilePageState extends State<ProfilePage> {
           ),
         ],
       ),
-      body: Center(
-        child: BlocConsumer<ProfileBloc, ProfileState>(
-          listenWhen: (prev, curr) => curr is ProfileFailure,
-          buildWhen: (prev, curr) => curr is! ProfileFailure,
-          listener: (context, state) {
-            if (state is ProfileFailure) {
-              // show message error
-            }
-          },
-          builder: (BuildContext context, ProfileState state) {
-            if (state is ProfileLoading) {
-              return const CircularProgressIndicator.adaptive();
-            }
-            return Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Text(
-                  'Drugs: ${bloc.drugs}',
-                  style: const TextStyle(fontSize: 20),
-                ),
-                const SizedBox(height: 10),
-                // Text(
-                //   'Drug Name: ${context.watch<ProfileBloc>().accountDrug}', // Display Drug name
-                //   style: TextStyle(fontSize: 20),
-                // ),
-              ],
-            );
-          },
-        ),
+      body: Column(
+        children: <Widget>[
+          Row(
+            children: <Widget>[
+              Icon(Icons.account_circle),
+              SizedBox(width: 10),
+              FutureBuilder<String>(
+                future: AccountUtils.accountEmail,
+                builder:
+                    (BuildContext context, AsyncSnapshot<String> snapshot) {
+                  if (snapshot.hasError) {
+                    return Text('Пользователь');
+                  } else {
+                    return Text('${snapshot.data}');
+                  }
+                },
+              ),
+            ],
+          ),
+          SizedBox(height: 20),
+          ElevatedButton(
+            onPressed: () {
+              context.go('/auth/registration');
+            },
+            child: Text('Препараты'),
+          ),
+          SizedBox(height: 10),
+          ElevatedButton(
+            onPressed: () {
+              context.go('/auth/registration');
+            },
+            child: Text('Заболевания'),
+          ),
+        ],
       ),
     );
   }

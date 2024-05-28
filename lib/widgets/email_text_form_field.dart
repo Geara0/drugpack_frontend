@@ -8,24 +8,37 @@ class EmailTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TextFormField(
-      controller: controller,
-      decoration: InputDecoration(
-        labelText: 'auth.Email'.tr(),
-      ),
-      keyboardType: TextInputType.emailAddress,
-      validator: (value) {
-        if (value == null || value.isEmpty) {
-          return 'validation error.Email is empty'.tr();
-        } else {
-          final RegExp emailRegex = RegExp(
-              r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+");
-          if (!emailRegex.hasMatch(value)) {
-            return 'validation error.Invalid email'.tr();
-          }
-        }
-        return null;
-      },
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        const SizedBox(height: 10),
+        Text('auth.Email'.tr(), style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),),
+        const SizedBox(height: 10),
+        Container(
+          height: 40,
+          child: TextFormField(
+            controller: controller,
+            decoration: InputDecoration(
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(10.0),),
+            ),
+            keyboardType: TextInputType.emailAddress,
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return 'validation error.Email is empty'.tr();
+              } else {
+                final RegExp emailRegex = RegExp(
+                    r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+");
+                if (!emailRegex.hasMatch(value)) {
+                  return 'validation error.Invalid email'.tr();
+                }
+              }
+              return null;
+            },
+          ),
+        ),
+        const SizedBox(height: 10),
+      ],
     );
   }
 }
