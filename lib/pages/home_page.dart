@@ -1,19 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:go_router/go_router.dart';
 
 import '../dto/drug/drug_dto.dart';
+import '../widgets/custom_app_bar.dart';
 import '../widgets/search_bar/search_bar.dart';
-import 'drug_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
   @override
-  _HomePageState createState() => _HomePageState();
+  HomePageState createState() => HomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class HomePageState extends State<HomePage> {
   int count = 0;
 
   void incrementCount() {
@@ -25,9 +24,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Text('Home Page'),
-        ),
+        appBar: CustomAppBar(),
         body: Column(
           children: <Widget>[
             Search.bar(
@@ -58,8 +55,4 @@ class _HomePageState extends State<HomePage> {
     context.goNamed("drug",
         pathParameters: {'id': drugDto.id.toString()}, extra: drugDto);
   }
-
-// Future<Iterable<String>> _getHistory() {
-//   return 'fgasdrse';
-// }
 }

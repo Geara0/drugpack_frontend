@@ -12,7 +12,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       centerTitle: true,
       title: Image.asset(
         Theme.of(context).brightness == Brightness.light ? logoDark : logoLight,
-        fit: BoxFit.contain, // Подгонять изображение для отображения внутри доступного пространства
+        fit: BoxFit.contain,
         height: 48,
       ),
     );
