@@ -15,7 +15,7 @@ class ThemeClass {
   static const Color lightIconColor = Color(0xFF002566);
   static const Color lightInputTextColor = Color(0xFF000A1B);
 
-  static const Color darkAppBarColor = Color(0xFF001A47);
+  static const Color darkAppBarColor = Color(0xFF002566);
   static const Color darkStatusBarColor = Color(0xFF001A47);
   static const Color darkBackgroundColor = Color(0xFF000A1B);
   static const Color darkBoxDecorationColor = Color(0xFF7BABFF);

@@ -7,6 +7,7 @@ import 'package:go_router/go_router.dart';
 import '../blocs/auth_bloc/auth_bloc.dart';
 import '../blocs/auth_bloc/auth_event.dart';
 import '../blocs/auth_bloc/auth_state.dart';
+import '../widgets/custom_app_bar.dart';
 import '../widgets/email_text_form_field.dart';
 
 class AuthPage extends StatelessWidget {
@@ -37,6 +38,7 @@ class AuthPageContent extends StatelessWidget {
     final authBloc = context.read<AuthBloc>();
 
     return Scaffold(
+      appBar: CustomAppBar(),
       body: Container(
         padding: const EdgeInsets.symmetric(horizontal: 20),
         child: Column(

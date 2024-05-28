@@ -4,7 +4,7 @@ import 'package:flutter/cupertino.dart';
 
 final dio = Dio()
   ..options = BaseOptions(
-    baseUrl: 'http://192.168.88.103:8080/',
+    baseUrl: 'http://192.168.0.100:8080/',
     sendTimeout: const Duration(minutes: 1),
     receiveTimeout: const Duration(minutes: 1),
   )

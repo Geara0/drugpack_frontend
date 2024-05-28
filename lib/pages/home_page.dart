@@ -27,15 +27,6 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
         appBar: AppBar(
           title: Text('Home Page'),
-          actions: [
-            IconButton(
-              icon: const Icon(Icons.exit_to_app),
-              onPressed: () {
-                const FlutterSecureStorage().deleteAll();
-                context.go('/auth/login');
-              },
-            ),
-          ],
         ),
         body: Column(
           children: <Widget>[

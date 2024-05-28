@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import '../themes/themes.dart';
+import '../widgets/custom_app_bar.dart';
 import '../widgets/email_text_form_field.dart';
 
 class RecoveryPage extends StatelessWidget {
@@ -14,6 +15,7 @@ class RecoveryPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: CustomAppBar(),
       body: Container(
         padding: EdgeInsets.symmetric(horizontal: 20),
         child: Column(
