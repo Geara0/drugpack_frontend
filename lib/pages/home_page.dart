@@ -24,15 +24,25 @@ class HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: CustomAppBar(),
-        body: Column(
-          children: <Widget>[
-            Search.bar(
-              transformer: _transformer,
-              onTapResult: _onTapResult,
-            ),
-          ],
-        ));
+      appBar: CustomAppBar(),
+      body: Container(
+          padding: const EdgeInsets.symmetric(horizontal: 20),
+          child: Column(
+            children: <Widget>[
+              const SizedBox(height: 20),
+              Container(
+                child: Column(
+                  children: <Widget>[
+                    Search.bar(
+                      transformer: _transformer,
+                      onTapResult: _onTapResult,
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          )),
+    );
   }
 
   Widget _transformer(DrugDto drugDto) {

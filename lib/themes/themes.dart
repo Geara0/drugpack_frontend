@@ -57,11 +57,12 @@ class ThemeClass {
       ),
     ),
     scaffoldBackgroundColor: lightBackgroundColor,
-    inputDecorationTheme: const InputDecorationTheme(
+    inputDecorationTheme: InputDecorationTheme(
       filled: true,
       fillColor: lightTextFieldInsideColor,
-      focusedBorder: OutlineInputBorder(
-        borderSide: BorderSide(color: lightTextFieldBorderColor),
+      border: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(10),
+        borderSide: const BorderSide(color: lightTextFieldBorderColor),
       ),
     ),
     iconTheme: const IconThemeData(color: lightIconColor),
@@ -93,11 +94,12 @@ class ThemeClass {
       ),
     ),
     scaffoldBackgroundColor: darkBackgroundColor,
-    inputDecorationTheme: const InputDecorationTheme(
+    inputDecorationTheme: InputDecorationTheme(
       filled: true,
       fillColor: darkTextFieldInsideColor,
-      focusedBorder: OutlineInputBorder(
-        borderSide: BorderSide(color: darkTextFieldBorderColor),
+      border: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(10),
+        borderSide: const BorderSide(color: darkTextFieldBorderColor),
       ),
     ),
     iconTheme: const IconThemeData(color: darkIconColor),

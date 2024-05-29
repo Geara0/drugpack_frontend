@@ -4,7 +4,7 @@ import 'package:flutter/cupertino.dart';
 
 final dio = Dio()
   ..options = BaseOptions(
-    baseUrl: 'http://192.168.0.100:8080/',
+    baseUrl: 'http://192.168.23.129:8080/',
     sendTimeout: const Duration(minutes: 1),
     receiveTimeout: const Duration(minutes: 1),
   )
@@ -23,7 +23,8 @@ class _TokenInterceptor extends Interceptor {
       return;
     }
     options.headers.addAll({
-        'Authorization': 'Bearer $token',});
+      'Authorization': 'Bearer $token',
+    });
 
     if (options.data is FormData) {
       (options.data as FormData).fields.addAll([
