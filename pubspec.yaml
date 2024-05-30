@@ -27,6 +27,8 @@ dependencies:
   hexcolor: ^3.0.1
   json_serializable: ^6.7.1
   provider: ^6.0.1
+  dartz: ^0.10.1
+  equatable: ^2.0.5
 
 dev_dependencies:
   flutter_test:

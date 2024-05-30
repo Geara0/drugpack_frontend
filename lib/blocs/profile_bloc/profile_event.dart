@@ -1,12 +1,7 @@
 abstract class ProfileEvent {}
 
 class GetAccountDrugs extends ProfileEvent {
-  final String email;
-
-  GetAccountDrugs({required this.email});
-
-  @override
-  String toString() => 'GetAccountDrugs { email: $email}';
+  GetAccountDrugs();
 }
 
 class AddAccountDrug extends ProfileEvent {
@@ -14,6 +9,7 @@ class AddAccountDrug extends ProfileEvent {
 
   AddAccountDrug(this.drugId);
 }
+
 class RemoveAccountDrug extends ProfileEvent {
   final String drugId;
 

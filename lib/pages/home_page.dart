@@ -13,14 +13,6 @@ class HomePage extends StatefulWidget {
 }
 
 class HomePageState extends State<HomePage> {
-  int count = 0;
-
-  void incrementCount() {
-    setState(() {
-      count++;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,15 +22,13 @@ class HomePageState extends State<HomePage> {
           child: Column(
             children: <Widget>[
               const SizedBox(height: 20),
-              Container(
-                child: Column(
-                  children: <Widget>[
-                    Search.bar(
-                      transformer: _transformer,
-                      onTapResult: _onTapResult,
-                    ),
-                  ],
-                ),
+              Column(
+                children: <Widget>[
+                  Search.bar(
+                    transformer: _transformer,
+                    onTapResult: _onTapResult,
+                  ),
+                ],
               ),
             ],
           )),
@@ -48,13 +38,22 @@ class HomePageState extends State<HomePage> {
   Widget _transformer(DrugDto drugDto) {
     return Container(
       padding: const EdgeInsets.only(left: 20, right: 20),
-      child: Column(
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          const SizedBox(height: 20),
-          Text(
-            drugDto.name,
-            maxLines: 3,
-            overflow: TextOverflow.ellipsis,
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                const SizedBox(height: 20),
+                Text(
+                  drugDto.name,
+                  maxLines: 3,
+                  overflow: TextOverflow.ellipsis,
+                  textAlign: TextAlign.left,
+                ),
+              ],
+            ),
           ),
         ],
       ),

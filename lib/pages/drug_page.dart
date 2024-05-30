@@ -9,7 +9,7 @@ class DrugPage extends StatelessWidget {
   final DrugDto drugDto;
   final String id;
 
-  DrugPage({super.key, required this.id, required this.drugDto});
+  DrugPage({required this.id, required this.drugDto}) : super();
 
   @override
   Widget build(BuildContext context) {
@@ -19,40 +19,76 @@ class DrugPage extends StatelessWidget {
       appBar: AppBar(
         title: Text(drugDto.name),
       ),
-      body: Padding(
-        padding: EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              'ID: ${drugDto.id}',
-              style: TextStyle(fontSize: 16.0),
-            ),
-            Text(
-              'Name: ${drugDto.name}',
-              style: TextStyle(fontSize: 16.0),
-            ),
-            if (drugDto.packaging != null)
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: EdgeInsets.all(16.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
               Text(
-                'Packaging: ${drugDto.packaging}',
-                style: TextStyle(fontSize: 16.0),
+                'ID: ${drugDto.id}',
               ),
-            Text(
-              'Firm: ${drugDto.firm}',
-              style: TextStyle(fontSize: 16.0),
-            ),
-            Row(children: [ElevatedButton(
-              onPressed: () {
-                profileBloc.add(AddAccountDrug(drugDto.id.toString()));
-              },
-              child: Text('AddAccountDrug'.tr()),
-            ),ElevatedButton(
-              onPressed: () {
-                profileBloc.add(RemoveAccountDrug(drugDto.id.toString()));
-              },
-              child: Text('RemoveAccountDrug'.tr()),
-            ),],)
-          ],
+              Text(
+                'Name: ${drugDto.name}',
+              ),
+              if (drugDto.packaging != null)
+                Text(
+                  'Packaging: ${drugDto.packaging}',
+                ),
+              Text(
+                'Firm: ${drugDto.firm}',
+              ),
+              ExpansionTile(
+                title: Text('Description'),
+                children: [
+                  if (drugDto.description != null)
+                    ...drugDto.description!.toJson().entries.map((entry) {
+                      if (entry.value != null) {
+                        return ListTile(
+                          leading: Text(entry.key),
+                          title: Text(
+                            '${entry.value}',
+                          ),
+                        );
+                      }
+                      return Container();
+                    }),
+                ],
+              ),
+              ExpansionTile(
+                title: Text('Active Substance'),
+                children: [
+                  if (drugDto.activeSubstance != null)
+                    ...drugDto.activeSubstance!.toJson().entries.map((entry) {
+                      if (entry.value != null) {
+                        return ListTile(
+                          leading: Text(entry.key),
+                          title: Text('${entry.value}',
+                              style: TextStyle(fontSize: 16.0)),
+                        );
+                      }
+                      return Container();
+                    }),
+                ],
+              ),
+              Row(
+                children: [
+                  ElevatedButton(
+                    onPressed: () {
+                      profileBloc.add(AddAccountDrug(drugDto.id.toString()));
+                    },
+                    child: Text('AddAccountDrug'.tr()),
+                  ),
+                  ElevatedButton(
+                    onPressed: () {
+                      profileBloc.add(RemoveAccountDrug(drugDto.id.toString()));
+                    },
+                    child: Text('RemoveAccountDrug'.tr()),
+                  ),
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );

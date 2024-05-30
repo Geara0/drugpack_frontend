@@ -66,7 +66,6 @@ final List<RouteBase> _routes = [
                               drugDto: drugDto,
                             ),
                           );
-
                         },
                       ),
                     ],
