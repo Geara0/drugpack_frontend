@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:drugpack/blocs/profile_bloc/profile_bloc.dart';
-import 'package:drugpack/dto/drug/drug_dto.dart';
+import 'package:go_router/go_router.dart';
+
+import '../themes/themes.dart';
 
 class AccountDrugs extends StatefulWidget {
   @override
@@ -31,16 +33,28 @@ class _AccountDrugsState extends State<AccountDrugs> {
               itemCount: drugs.length,
               itemBuilder: (BuildContext context, int index) {
                 final drug = drugs[index];
-                return Card(
-                  child: ListTile(
-                    title: Text(drug.name),
-                  ),
+                return Column(
+                  children: [
+                    const SizedBox(height: 5),
+                    Container(
+                      decoration: ThemeClass.containerDecoration(context),
+                      child: ListTile(
+                        title: Text(drug.name),
+                        onTap: () {
+                          context.goNamed("drug",
+                              pathParameters: {'id': drug.id.toString()},
+                              extra: drug);
+                        },
+                      ),
+                    ),
+                    const SizedBox(height: 5),
+                  ],
                 );
               },
             ),
           );
         } else {
-          return Center(
+          return const Center(
             child: CircularProgressIndicator(),
           );
         }

@@ -54,9 +54,6 @@ final List<RouteBase> _routes = [
                         BlocProvider(
                           create: (context) => ProfileBloc(),
                         ),
-                        // BlocProvider(
-                        //   create: (context) => AllProfileInfoBloc(),
-                        // ),
                       ],
                       child: HomePage(key: state.pageKey),
                     ),

@@ -14,10 +14,6 @@ class GetAccountResponse with _$GetAccountResponse {
     @Default([]) List<CompatibilityDto> compatibilites,
   }) = _GetAccountResponse;
 
-  // const factory GetAccountResponse.error({
-  //   required String error,
-  // }) = GetAccountResponseError;
-
   factory GetAccountResponse.fromJson(Map<String, dynamic> json) =>
       _$GetAccountResponseFromJson(json);
 }

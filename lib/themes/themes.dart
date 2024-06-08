@@ -78,6 +78,9 @@ class ThemeClass {
       textTheme: const TextTheme(
         titleMedium: TextStyle(color: lightInputTextColor),
       ),
+      expansionTileTheme: const ExpansionTileThemeData(
+          textColor: lightTextColor, collapsedTextColor: lightTextColor),
+      listTileTheme: const ListTileThemeData(textColor: lightTextColor),
       searchViewTheme:
           const SearchViewThemeData(backgroundColor: lightBackgroundColor));
 
@@ -119,6 +122,9 @@ class ThemeClass {
       textTheme: const TextTheme(
         titleMedium: TextStyle(color: darkInputTextColor),
       ),
+      expansionTileTheme: const ExpansionTileThemeData(
+          textColor: darkTextColor, collapsedTextColor: darkTextColor),
+      listTileTheme: const ListTileThemeData(textColor: darkTextColor),
       searchViewTheme:
           const SearchViewThemeData(backgroundColor: darkBackgroundColor));
 

@@ -3,6 +3,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../dto/drug/drug_dto.dart';
+import '../themes/themes.dart';
 
 class DrugPage extends StatelessWidget {
   final DrugDto drugDto;
@@ -24,53 +25,79 @@ class DrugPage extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                'ID: ${drugDto.id}',
-              ),
-              Text(
-                'Name: ${drugDto.name}',
-              ),
-              if (drugDto.packaging != null)
-                Text(
-                  'Packaging: ${drugDto.packaging}',
-                ),
-              Text(
-                'Firm: ${drugDto.firm}',
-              ),
-              ExpansionTile(
-                title: Text('Description'),
-                children: [
-                  if (drugDto.description != null)
-                    ...drugDto.description!.toJson().entries.map((entry) {
-                      if (entry.value != null) {
-                        return ListTile(
-                          leading: Text(entry.key.tr()),
-                          title: Text(
+              ...drugDto.toJson().entries.map((entry) {
+                if (entry.value != null) {
+                  return Column(
+                    children: [
+                      const SizedBox(height: 10),
+                      Container(
+                        decoration: ThemeClass.containerDecoration(context),
+                        child: ListTile(
+                          title: Text(entry.key.tr()),
+                          subtitle: Text(
                             '${entry.value}',
                           ),
+                        ),
+                      ),
+                    ],
+                  );
+                }
+                return Container();
+              }),
+              if (drugDto.description != null)
+                ExpansionTile(
+                  title: const Text('description').tr(),
+                  children: [
+                    ...drugDto.description!.toJson().entries.map((entry) {
+                      if (entry.value != null) {
+                        return Column(
+                          children: [
+                            const SizedBox(height: 10),
+                            const Divider(height: 0),
+                            Container(
+                              decoration:
+                                  ThemeClass.containerDecoration(context),
+                              child: ListTile(
+                                title: Text(entry.key.tr()),
+                                subtitle: Text(
+                                  '${entry.value}',
+                                ),
+                              ),
+                            ),
+                          ],
                         );
                       }
                       return Container();
                     }),
-                ],
-              ),
-              ExpansionTile(
-                title: Text('Active Substance'),
-                children: [
-                  if (drugDto.activeSubstance != null)
+                  ],
+                ),
+              if (drugDto.activeSubstance != null)
+                ExpansionTile(
+                  title: const Text('activeSubstance').tr(),
+                  children: [
                     ...drugDto.activeSubstance!.toJson().entries.map((entry) {
                       if (entry.value != null) {
-                        return ListTile(
-                          leading: Text(entry.key.tr()),
-                          title: Text('${entry.value}',
-                              style: TextStyle(fontSize: 16.0)),
+                        return Column(
+                          children: [
+                            const SizedBox(height: 10),
+                            Container(
+                              decoration:
+                                  ThemeClass.containerDecoration(context),
+                              child: ListTile(
+                                title: Text(entry.key.tr()),
+                                subtitle: Text('${entry.value}',
+                                    style: const TextStyle(fontSize: 16.0)),
+                              ),
+                            ),
+                          ],
                         );
                       }
                       return Container();
                     }),
-                ],
-              ),
+                  ],
+                ),
               Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   ElevatedButton(
                     onPressed: () {

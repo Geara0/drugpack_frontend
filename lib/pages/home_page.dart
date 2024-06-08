@@ -1,6 +1,4 @@
-import 'package:drugpack/blocs/profile_bloc/profile_bloc.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 import '../dto/drug/drug_dto.dart';
@@ -24,10 +22,12 @@ class HomePageState extends State<HomePage> {
         padding: const EdgeInsets.symmetric(horizontal: 20),
         child: Column(
           children: <Widget>[
+            const SizedBox(height: 20),
             Search.bar(
               transformer: _transformer,
               onTapResult: _onTapResult,
             ),
+            const SizedBox(height: 15),
             Expanded(
               child: AccountDrugs(),
             ),

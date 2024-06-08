@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:go_router/go_router.dart';
@@ -16,11 +17,14 @@ class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Image.asset(
-        Theme.of(context).brightness == Brightness.light ? 'assets/images/light_logo_DRUG.png' : 'assets/images/dark_logo_DRUG.png',
-        fit: BoxFit.contain,
-        height: 48,
-      ),
+      appBar: AppBar(
+        title: Image.asset(
+          Theme.of(context).brightness == Brightness.light
+              ? 'assets/images/light_logo_DRUG.png'
+              : 'assets/images/dark_logo_DRUG.png',
+          fit: BoxFit.contain,
+          height: 48,
+        ),
         actions: [
           IconButton(
             icon: const Icon(Icons.exit_to_app),
@@ -41,14 +45,17 @@ class _ProfilePageState extends State<ProfilePage> {
               padding: const EdgeInsets.all(10),
               child: Row(
                 children: <Widget>[
-                  const Icon(Icons.account_circle, size: 70,),
-                  SizedBox(width: 20),
+                  const Icon(
+                    Icons.account_circle,
+                    size: 70,
+                  ),
+                  const SizedBox(width: 20),
                   FutureBuilder<String>(
                     future: AccountUtils.accountEmail,
                     builder:
                         (BuildContext context, AsyncSnapshot<String> snapshot) {
                       if (snapshot.hasError) {
-                        return Text('Пользователь');
+                        return const Text('profile.user').tr();
                       } else {
                         return Text('${snapshot.data}');
                       }
@@ -58,12 +65,6 @@ class _ProfilePageState extends State<ProfilePage> {
               ),
             ),
             const SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: () {
-                context.go('/auth/registration');
-              },
-              child: Text('Препараты'),
-            ),
           ],
         ),
       ),
