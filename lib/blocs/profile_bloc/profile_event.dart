@@ -1,8 +1,10 @@
+part of 'profile_bloc.dart';
+
 abstract class ProfileEvent {}
 
-class GetAccountDrugs extends ProfileEvent {
-  GetAccountDrugs();
-}
+class GetAccount extends ProfileEvent {}
+
+class GetAccountDrugs extends ProfileEvent {}
 
 class AddAccountDrug extends ProfileEvent {
   final String drugId;
@@ -15,3 +17,5 @@ class RemoveAccountDrug extends ProfileEvent {
 
   RemoveAccountDrug(this.drugId);
 }
+
+class _UnknownErrorEvent extends ProfileEvent {}

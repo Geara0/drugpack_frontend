@@ -1,4 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class EmailTextField extends StatelessWidget {
@@ -25,6 +26,8 @@ class EmailTextField extends StatelessWidget {
           ),
           keyboardType: TextInputType.emailAddress,
           validator: (value) {
+            if (kDebugMode) return null;
+
             if (value == null || value.isEmpty) {
               return 'validation error.Email is empty'.tr();
             } else {

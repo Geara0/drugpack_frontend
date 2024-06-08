@@ -6,14 +6,7 @@ class ProfileInitial extends ProfileState {}
 
 class ProfileLoading extends ProfileState {}
 
-class ProfileSuccess extends ProfileState {
-  final String message;
-
-  ProfileSuccess({required this.message});
-
-  @override
-  String toString() => 'ProfileStateSuccess { message: $message }';
-}
+class ProfileSuccess extends ProfileState {}
 
 class ProfileFailure extends ProfileState {
   final String error;

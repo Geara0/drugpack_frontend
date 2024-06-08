@@ -1,7 +1,10 @@
+import 'package:drugpack/blocs/profile_bloc/profile_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 import '../dto/drug/drug_dto.dart';
+import '../widgets/account_drugs.dart';
 import '../widgets/custom_app_bar.dart';
 import '../widgets/search_bar/search_bar.dart';
 
@@ -18,20 +21,19 @@ class HomePageState extends State<HomePage> {
     return Scaffold(
       appBar: CustomAppBar(),
       body: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 20),
-          child: Column(
-            children: <Widget>[
-              const SizedBox(height: 20),
-              Column(
-                children: <Widget>[
-                  Search.bar(
-                    transformer: _transformer,
-                    onTapResult: _onTapResult,
-                  ),
-                ],
-              ),
-            ],
-          )),
+        padding: const EdgeInsets.symmetric(horizontal: 20),
+        child: Column(
+          children: <Widget>[
+            Search.bar(
+              transformer: _transformer,
+              onTapResult: _onTapResult,
+            ),
+            Expanded(
+              child: AccountDrugs(),
+            ),
+          ],
+        ),
+      ),
     );
   }
 

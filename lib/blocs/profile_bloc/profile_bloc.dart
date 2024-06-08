@@ -1,79 +1,54 @@
+import 'dart:async';
+
+import 'package:drugpack/blocs/profile_bloc/responses/get_account/get_account_response.dart';
+import 'package:drugpack/dto/compatibility/compatibility_dto.dart';
+import 'package:drugpack/dto/condition/condition_dto.dart';
 import 'package:drugpack/dto/drug/drug_dto.dart';
-import 'package:drugpack/utils/account_utils.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:rxdart/transformers.dart';
 import '../../client/dio.dart';
-import 'profile_event.dart';
 import 'client/client.dart';
 
 part 'profile_state.dart';
 
-    class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
-  final _client = ProfileClient (dio);
+part 'profile_event.dart';
 
-  List<DrugDto> drugs =[];
-  ProfileBloc() : super(ProfileInitial());
-  // final accountDrugs ;
+class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
+  final _client = ProfileClient(dio);
+
+  List<DrugDto> drugs = [];
+  List<ConditionDto> conditions = [];
+  List<CompatibilityDto> compatibilities = [];
 
   @override
-  Stream<ProfileState> mapEventToState(ProfileEvent event) async* {
-    if (event is GetAccountDrugs) {
-      yield ProfileLoading();
+  onError(error, stackTrace) {
+    add(_UnknownErrorEvent());
+    super.onError(error, stackTrace);
+  }
 
-      try {
-        final response = await _client.getAccountDrugs();
+  ProfileBloc() : super(ProfileInitial()) {
+    on<GetAccount>(
+      _getAccount,
+      transformer: (events, mapper) => events
+          .throttleTime(const Duration(milliseconds: 500))
+          .asyncExpand(mapper),
+    );
+    on<_UnknownErrorEvent>(_showUnknownError);
+  }
 
-        if (response.response.statusCode == 200) {
-          debugPrint('$response');
-          yield ProfileSuccess(message: 'Get drugs successful!');
-        } else {
-          yield ProfileFailure(
-              error: 'Failed to get drugs. Please check your credentials.');
-        }
-      } catch (e) {
-        yield ProfileFailure(
-            error:
-                'Failed to connect to the server. Please check your internet connection.');
-      }
-    }
-    if (event is AddAccountDrug) {
-      yield ProfileLoading();
+  FutureOr<void> _getAccount(
+      GetAccount event, Emitter<ProfileState> emit) async {
+    final response = await _client.getAccountTotal();
+    drugs = response.drugs;
+    conditions = response.conditions;
+    compatibilities = response.compatibilites;
 
-      try {
-        var drugId = '[' + event.drugId + ']';
-        final response = await dio.post('/account/addDrugs', data: drugId);
+    emit(ProfileSuccess());
+  }
 
-        if (response == true) {
-          debugPrint('$response');
-          yield ProfileSuccess(message: 'Add drugs successful!');
-        } else {
-          yield ProfileFailure(error: 'Failed to add drugs.');
-        }
-      } catch (e) {
-        yield ProfileFailure(
-            error:
-                'Failed to connect to the server. Please check your internet connection.');
-      }
-    }
-
-    if (event is RemoveAccountDrug) {
-      yield ProfileLoading();
-
-      try {
-        var drugId = '[' + event.drugId + ']';
-        final response = await dio.post('/account/removeDrugs', data: drugId);
-
-        if (response == true) {
-          debugPrint('$response');
-          yield ProfileSuccess(message: 'Remove drugs successful!');
-        } else {
-          yield ProfileFailure(error: 'Failed to remove drugs.');
-        }
-      } catch (e) {
-        yield ProfileFailure(
-            error:
-                'Failed to connect to the server. Please check your internet connection.');
-      }
-    }
+  FutureOr<void> _showUnknownError(
+      _UnknownErrorEvent event, Emitter<ProfileState> emit) {
+    emit(ProfileFailure(error: 'unknown error'));
   }
 }

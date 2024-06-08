@@ -1,4 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class PasswordTextField extends StatelessWidget {
@@ -24,6 +25,8 @@ class PasswordTextField extends StatelessWidget {
           ),
           obscureText: true,
           validator: (value) {
+            if (kDebugMode) return null;
+
             if (value == null || value.isEmpty) {
               return 'validation error.Password is empty'.tr();
             } else if (value.length < 8) {

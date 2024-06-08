@@ -14,6 +14,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
+import '../blocs/edit_profile_bloc/edit_profile_bloc.dart';
 import '../blocs/auth_bloc/auth_bloc.dart';
 import '../pages/drug_page.dart';
 import '../pages/profile_page.dart';
@@ -50,6 +51,12 @@ final List<RouteBase> _routes = [
                             deserialize: DrugDto.fromJson,
                           ),
                         ),
+                        BlocProvider(
+                          create: (context) => ProfileBloc(),
+                        ),
+                        // BlocProvider(
+                        //   create: (context) => AllProfileInfoBloc(),
+                        // ),
                       ],
                       child: HomePage(key: state.pageKey),
                     ),
@@ -59,8 +66,8 @@ final List<RouteBase> _routes = [
                         name: 'drug',
                         builder: (context, state) {
                           DrugDto drugDto = state.extra as DrugDto;
-                          return BlocProvider<ProfileBloc>(
-                            create: (context) => ProfileBloc(),
+                          return BlocProvider<EditProfileBloc>(
+                            create: (context) => EditProfileBloc(),
                             child: DrugPage(
                               id: state.pathParameters['id'] ?? '',
                               drugDto: drugDto,
@@ -77,8 +84,8 @@ final List<RouteBase> _routes = [
                   GoRoute(
                     path: 'profile',
                     builder: (context, state) {
-                      return BlocProvider<ProfileBloc>(
-                        create: (context) => ProfileBloc(),
+                      return BlocProvider<EditProfileBloc>(
+                        create: (context) => EditProfileBloc(),
                         child: ProfilePage(
                           key: state.pageKey,
                         ),
@@ -88,8 +95,8 @@ final List<RouteBase> _routes = [
                       GoRoute(
                         path: 'account_drugs',
                         builder: (context, state) {
-                          return BlocProvider<ProfileBloc>(
-                            create: (context) => ProfileBloc(),
+                          return BlocProvider<EditProfileBloc>(
+                            create: (context) => EditProfileBloc(),
                             child: ProfilePage(
                               key: state.pageKey,
                             ),
@@ -99,8 +106,8 @@ final List<RouteBase> _routes = [
                       GoRoute(
                         path: 'account_conditions',
                         builder: (context, state) {
-                          return BlocProvider<ProfileBloc>(
-                            create: (context) => ProfileBloc(),
+                          return BlocProvider<EditProfileBloc>(
+                            create: (context) => EditProfileBloc(),
                             child: ProfilePage(
                               key: state.pageKey,
                             ),

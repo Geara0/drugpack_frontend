@@ -1,8 +1,8 @@
-// import 'package:drugpack/blocs/profile_bloc/profile_bloc.dart';
+// import 'package:drugpack/blocs/profile_bloc/edit_profile_bloc.dart';
 // import 'package:flutter/material.dart';
 // import 'package:flutter_bloc/flutter_bloc.dart';
 //
-// import '../blocs/profile_bloc/profile_event.dart';
+// import '../blocs/profile_bloc/edit_profile_event.dart';
 //
 // class AccountConditionsPage extends StatelessWidget {
 //   const AccountConditionsPage({super.key});
